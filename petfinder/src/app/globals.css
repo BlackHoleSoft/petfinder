@@ -26,3 +26,32 @@ body {
   color: var(--foreground);
   font-family: var(--ff-roboto), sans-serif;
 }
+
+/* Дополнительные стили для приложения PetFinder */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.leaflet-control,
+.leaflet-bottom {
+  display: none !important;
+}
+
+.custom-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  min-width: 20px;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
