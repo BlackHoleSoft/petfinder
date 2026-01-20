@@ -1,5 +1,7 @@
 'use client';
 
+import { usePublishModalStore } from '@/stores/publishModalStore';
+import { Button } from '@/ui/Button';
 import { useState, useEffect } from 'react';
 
 interface EventItem {
@@ -20,6 +22,8 @@ interface EventsFeedProps {
 
 export const EventsFeed = ({ events = [] }: EventsFeedProps) => {
   const [feedEvents, setFeedEvents] = useState<EventItem[]>([]);
+
+  const {openModal} = usePublishModalStore();
 
   // Инициализация моковых данных
   useEffect(() => {
@@ -117,9 +121,9 @@ export const EventsFeed = ({ events = [] }: EventsFeedProps) => {
     <div className="w-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">Лента событий</h2>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center transition-colors" aria-label="Создать публикацию">
+        <Button circle title="Создать публикацию" onClick={openModal}>
           <span className="text-xl">+</span>
-        </button>
+        </Button>
       </div>
       
       <div className="space-y-4">

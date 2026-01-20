@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { PublishModal } from "@/components/organisms/PublishModal";
 
 const roboto = Roboto({
   variable: "--ff-roboto",
@@ -23,6 +24,7 @@ export default function RootLayout({
         className={`${roboto.variable} antialiased`}
       >
         {children}
+        <PublishModal />
       </body>
     </html>
   );
