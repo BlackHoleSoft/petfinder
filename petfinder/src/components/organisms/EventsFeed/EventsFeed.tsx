@@ -1,10 +1,9 @@
 "use client";
 
-import { usePublishModalStore } from "@/stores/publishModalStore";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { PlusCircle } from "lucide-react";
 import { EventCard, EventItem } from "@/components/molecules/EventCard";
+import { Publish } from "@/components/molecules/Publish";
 
 interface EventsFeedProps {
   events?: EventItem[];
@@ -12,8 +11,6 @@ interface EventsFeedProps {
 
 export const EventsFeed = ({ events = [] }: EventsFeedProps) => {
   const [feedEvents, setFeedEvents] = useState<EventItem[]>([]);
-
-  const { openModal } = usePublishModalStore();
 
   // Инициализация моковых данных
   useEffect(() => {
@@ -83,9 +80,7 @@ export const EventsFeed = ({ events = [] }: EventsFeedProps) => {
     <div className="grid w-full h-full grid-cols-1 grid-rows-[auto_1fr_auto]">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">Лента событий</h2>
-        <Button title="Создать публикацию" onClick={openModal}>
-          <PlusCircle />
-        </Button>
+        <Publish />
       </div>
 
       <div className="overflow-y-auto h-full">
