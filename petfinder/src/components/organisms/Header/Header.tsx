@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePublishModalStore } from "@/stores/publishModalStore";
-import { Button } from "@/ui/Button";
 
 interface HeaderProps {}
 
@@ -12,7 +11,7 @@ export const Header = ({}: HeaderProps) => {
   return (
     <header className="bg-white shadow-md py-2 px-6 flex items-center justify-between">
       <div className="flex items-center space-x-10">
-        <Link href="/" className="text-xl font-bold text-blue-600">
+        <Link href="/" className="text-xl font-bold text-(--main-color)">
           PetFinder
         </Link>
 

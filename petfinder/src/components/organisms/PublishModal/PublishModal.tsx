@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import Modal from 'react-modal';
-import { usePublishModalStore } from '@/stores/publishModalStore';
-import { Button } from '@/ui/Button';
+import React, { useEffect } from "react";
+import Modal from "react-modal";
+import { usePublishModalStore } from "@/stores/publishModalStore";
+import { Button } from "@/components/ui/button";
 
 // Устанавливаем корневой элемент для модального окна
-Modal.setAppElement('body');
+Modal.setAppElement("body");
 
 export const PublishModal = () => {
   const { isOpen, closeModal } = usePublishModalStore();
@@ -14,14 +14,14 @@ export const PublishModal = () => {
   // Обработка закрытия модального окна по клавише Escape
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         closeModal();
       }
     };
 
-    document.addEventListener('keydown', handleEscapeKey);
+    document.addEventListener("keydown", handleEscapeKey);
     return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [closeModal]);
 
@@ -34,34 +34,30 @@ export const PublishModal = () => {
     >
       <div className="flex flex-col space-y-4">
         <h2 className="text-xl font-semibold mb-2">Создать публикацию</h2>
-        
-        <button 
+
+        <button
           className="w-full text-left p-3 border rounded hover:bg-gray-50 transition-colors text-gray-800"
           onClick={() => {
             // Перенаправление на страницу публикации объявления о пропаже
-            window.location.href = '/create-lost-pet';
+            window.location.href = "/create-lost-pet";
             closeModal();
           }}
         >
           Мой питомец потерялся
         </button>
-        
-        <button 
+
+        <button
           className="w-full text-left p-3 border rounded hover:bg-gray-50 transition-colors text-gray-800"
           onClick={() => {
             // Перенаправление на страницу публикации пина
-            window.location.href = '/create-pin';
+            window.location.href = "/create-pin";
             closeModal();
           }}
         >
           Я видел потеряшку
         </button>
-        
-        <Button 
-          onClick={closeModal}
-          variant='secondary'
-          fullWidth
-        >
+
+        <Button onClick={closeModal} variant="secondary">
           Отмена
         </Button>
       </div>

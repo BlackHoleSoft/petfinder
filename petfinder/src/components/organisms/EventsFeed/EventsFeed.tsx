@@ -1,20 +1,10 @@
 "use client";
 
 import { usePublishModalStore } from "@/stores/publishModalStore";
-import { Button } from "@/ui/Button";
+import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-
-interface EventItem {
-  id: number;
-  type: "lost" | "seen" | "found";
-  animalType: "dog" | "cat" | "other";
-  name?: string;
-  description?: string;
-  image?: string;
-  contact?: string;
-  date: string;
-  location?: string;
-}
+import { PlusCircle } from "lucide-react";
+import { EventCard, EventItem } from "@/components/molecules/EventCard";
 
 interface EventsFeedProps {
   events?: EventItem[];
@@ -89,122 +79,26 @@ export const EventsFeed = ({ events = [] }: EventsFeedProps) => {
     }
   }, [events]);
 
-  // Функция для получения цвета фона карточки в зависимости от типа события
-  const getEventBgColor = (type: string) => {
-    switch (type) {
-      case "lost":
-        return "bg-red-50 border-l-4 border-red-500"; // Красный для пропавших
-      case "seen":
-        return "bg-yellow-50 border-l-4 border-yellow-500"; // Желтый для замеченных
-      case "found":
-        return "bg-green-50 border-l-4 border-green-500"; // Зеленый для найденных
-      default:
-        return "bg-gray-50 border-l-4 border-gray-500";
-    }
-  };
-
-  // Функция для получения названия типа события
-  const getEventTypeName = (type: string) => {
-    switch (type) {
-      case "lost":
-        return "Потерялся";
-      case "seen":
-        return "Видел потеряшку";
-      case "found":
-        return "Нашли";
-      default:
-        return "";
-    }
-  };
-
   return (
     <div className="grid w-full h-full grid-cols-1 grid-rows-[auto_1fr_auto]">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">Лента событий</h2>
-        <Button circle title="Создать публикацию" onClick={openModal}>
-          <span className="text-xl">+</span>
+        <Button title="Создать публикацию" onClick={openModal}>
+          <PlusCircle />
         </Button>
       </div>
 
       <div className="overflow-y-auto h-full">
         <div className="space-y-4">
           {feedEvents.map((event) => (
-            <div
-              key={event.id}
-              className={`p-4 rounded-lg shadow-sm ${getEventBgColor(event.type)} flex items-start`}
-            >
-              <div className="mr-4 flex-shrink-0">
-                {event.image ? (
-                  <img
-                    src={event.image}
-                    alt={`${event.animalType}`}
-                    className="w-16 h-16 object-cover rounded"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = "/placeholder.jpg";
-                    }}
-                  />
-                ) : (
-                  <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center">
-                    <span className="text-gray-500">{event.animalType}</span>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="flex justify-between">
-                  <h3 className="font-semibold text-gray-900 truncate">
-                    {event.name ||
-                      `${event.animalType.charAt(0).toUpperCase() + event.animalType.slice(1)}`}
-                  </h3>
-                  <span className="text-xs text-gray-500 ml-2">
-                    {event.date}
-                  </span>
-                </div>
-
-                <div className="mt-1">
-                  <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                      event.type === "lost"
-                        ? "bg-red-100 text-red-800"
-                        : event.type === "seen"
-                          ? "bg-yellow-100 text-yellow-800"
-                          : event.type === "found"
-                            ? "bg-green-100 text-green-800"
-                            : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {getEventTypeName(event.type)}
-                  </span>
-                </div>
-
-                <p className="mt-2 text-gray-700 text-sm line-clamp-2">
-                  {event.description}
-                </p>
-
-                {event.location && (
-                  <p className="mt-2 text-gray-500 text-xs">{event.location}</p>
-                )}
-
-                {event.contact && (
-                  <div className="mt-2 pt-2 border-t border-gray-200">
-                    <p className="text-sm text-gray-600">
-                      Контакт: {event.contact}
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
+            <EventCard key={event.id} {...event} />
           ))}
         </div>
       </div>
 
       {/* Простая пагинация */}
       <div className="mt-6 flex justify-center">
-        <button className="px-4 py-2 text-sm font-medium text-blue-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
-          Загрузить еще
-        </button>
+        <Button variant={"outline"}>Загрузить еще</Button>
       </div>
     </div>
   );

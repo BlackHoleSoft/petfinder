@@ -1,14 +1,4 @@
-export interface EventItem {
-  id: number;
-  type: 'lost' | 'seen' | 'found';
-  animalType: 'dog' | 'cat' | 'other';
-  name?: string;
-  description?: string;
-  image?: string;
-  contact?: string;
-  date: string;
-  location?: string;
-}
+import { EventItem } from "@/components/molecules/EventCard";
 
 export interface EventsFeedProps {
   events?: EventItem[];
